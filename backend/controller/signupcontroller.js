@@ -24,37 +24,7 @@ exports.addpostdata=(async(req,res,next)=>{
             });
         }
     });
-    
-        // try {
-        //     usermodule.findAll({where:{useremailid:req.body.emailid}})
-        //     .then((response)=>{
-        //         console.log("emailids"+response);
-        //         if(response)
-        //         {
 
-        //              console.log("true"+response);
-        //             usermodule.create({
-        //                 username:req.body.username,
-        //                 useremailid:req.body.emailid,
-        //                 userpass:req.body.password,
-        //             }).then((response)=>{
-        //             return res.json(false);
-        //             }).catch(error=>{
-        //                 console.log("jdkfjdjf"+error);
-        //             })
-        //         }
-        //         else
-        //         {
-        //             console.log("ddddd"+response);
-        //             res.json(true);
-        //         }
-        // }).catch((error)=>{
-        //     console.log("jdkfjdjf1"+error);
-        // })
-        
-    // }catch (error) {
-    //    console.log("errrp------"+error);
-    // }
 });
 
 
