@@ -77,17 +77,17 @@ try {
             
         if(isvaliduser.count)
         {
-            return res.json("Login Successfull");
+            return res.json({msg:"Login Successfull"});
         }
         else
         {
-            return res.json("Somewent wrong!!");
+            return res.status(401).send({error:"User not authorized!!"});
         }
         
     }
     else
     {
-        return res.json("Emailid does not exits");
+        return res.status(404).send({error:"404 - Not Found"});
     }
 } catch (error) {
     console.log(error);

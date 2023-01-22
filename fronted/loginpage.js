@@ -1,13 +1,12 @@
 const loginbutton=document.getElementById('login-btn');
-// const submit=document.getElementById("submit-btn");
 const message=document.getElementById("msg");
-// submit.addEventListener('click',signup);
 loginbutton.addEventListener('click',loginpage);
 
 function goToPage() {
     window.location.href = "signinpage.htm";
   }
-
+let mes="";
+let promise;
 async function loginpage(event)
 {
     event.preventDefault();
@@ -21,16 +20,22 @@ async function loginpage(event)
                     emailid,
                     password
                 };
-                const promise= await axios.post("http://localhost:4000/loginpage",userdetail);
-                
-                    if(promise.data=== "Login Successfull") {
-                        message.style.backgroundColor="green";
-                        cleardata();
-                    } else{
-                        message.style.backgroundColor="red";
-                    }
-                    
-                    message.innerText=promise.data;
+                try {
+                    promise=await axios.post("http://localhost:4000/loginpage",userdetail)
+                    message.style.backgroundColor="green";
+                    message.innerText=promise.data.msg;
+                } catch (error) {
+                    if (error.response && error.response.status === 404) {
+                        let errorMessage = error.response.data.error;
+                        mes=errorMessage+"User not found";
+                       
+                      }else if(error.response && error.response.status === 401){
+                        let errorMessage = error.response.data.error;
+                        mes=errorMessage;
+                      }
+                      message.style.backgroundColor="red"; 
+                      message.innerText=mes;
+                }
                     setTimeout(() => {
                         message.style.display = "none";
                     }, 3000);
