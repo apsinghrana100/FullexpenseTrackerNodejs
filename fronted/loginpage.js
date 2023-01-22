@@ -24,6 +24,7 @@ async function loginpage(event)
                     promise=await axios.post("http://localhost:4000/loginpage",userdetail)
                     message.style.backgroundColor="green";
                     message.innerText=promise.data.msg;
+                    cleardata();
                 } catch (error) {
                     if (error.response && error.response.status === 404) {
                         let errorMessage = error.response.data.error;
