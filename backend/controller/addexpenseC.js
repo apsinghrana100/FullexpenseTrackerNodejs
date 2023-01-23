@@ -1,19 +1,23 @@
 const Sequelize=require('sequelize');
 const bcrpt=require('bcrypt');
 const expensemodule=require('../module/expenstable');
+const authen = require('../middleware/auth');
+const session = require('express-session');
 
 exports.addexpense=(async(req,res,next)=>{
     console.log(req.body.expense);
     console.log(req.body.choice);
     console.log(req.body.description);
+    console.log("inser"+req.user.id);
+    
     try {
         if(
          await expensemodule.create({
                 expense:req.body.expense,
                 // expense:"lhjh",
                 choice:req.body.choice,
-                description:req.body.description
-                
+                description:req.body.description,
+                tbluserdetailId:req.user.id
                
              })){return res.status(200).json({success:true,msg:"Data Insert Successfully"})}
     } catch (error) {
@@ -23,9 +27,9 @@ exports.addexpense=(async(req,res,next)=>{
 });
 
 exports.fetchdata=(async(req,res,next)=>{
-    console.log("i am fetch daling");
+    console.log("i am fetch daling"+req.user.id);
     try {
-        const expensedata=await expensemodule.findAll();
+        const expensedata=await expensemodule.findAll({where:{tbluserdetailId:req.user.id}});
         console.log("data"+expensedata.length);
         if(expensedata.length>0 && expensedata!==null && expensedata!==undefined)
         {
@@ -38,9 +42,12 @@ exports.fetchdata=(async(req,res,next)=>{
     }
 })
 
-exports.deletedata=(async(req,res,next)=>{
+exports.deletedata=(async(req,res,next)=>{ //where:{id:req.params.id,tbluserdetailId:req.user.id}
+    console.log(" i am dele"+req.user.id);
     try {
-        const deletedata=await expensemodule.destroy({where:{id:req.params.id}});
+        console.log(" i am dele"+req.params.id);
+                const deletedata=await expensemodule.destroy({where:{id:req.params.id,tbluserdetailId:req.user.id}});
+
         if(deletedata)
         {
             console.log("data deleted succfully"+deletedata);

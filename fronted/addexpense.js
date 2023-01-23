@@ -1,4 +1,5 @@
 
+
 const submit=document.getElementById("expense-add");
 const table=document.getElementById("expense-table");
 const message=document.getElementById('msg');
@@ -8,6 +9,7 @@ submit.addEventListener('click',addexpense);
 async function addexpense(event)
 {
     try {
+        // event.preventDefault();
         const expense=document.getElementById("expens-money").value;
         const description=document.getElementById("expense-des").value;
         const choice=document.getElementById("drop-choice").value;
@@ -19,7 +21,8 @@ async function addexpense(event)
                 description,
                 choice
             }
-                const adddata= await axios.post("http://localhost:4000/addexpense",expensedata);
+            const token=localStorage.getItem("user");
+                const adddata= await axios.post("http://localhost:4000/addexpense",expensedata,{headers: {"Authorization":token}});
                 if(adddata)
                 {
                     console.log(adddata.data.msg);
@@ -41,9 +44,12 @@ async function addexpense(event)
 
 window.addEventListener('DOMContentLoaded',async(event)=>{
     try {
+        const token=localStorage.getItem("user");
+        console.log("token"+token);
         console.log("i am window listner");
-       const expensedata=await axios.get("http://localhost:4000/getexpensedata");
-    //    console.log(expensedata.data.expensedata[0]);
+       const expensedata=await axios.get("http://localhost:4000/getexpensedata",{headers: {"Authorization":token}});
+        console.log(expensedata);
+    
         if(expensedata.data.expensedata.length<=0)
         {
             message.innerHTML='<h1>No record found</h1>';
@@ -56,7 +62,7 @@ window.addEventListener('DOMContentLoaded',async(event)=>{
         display(expensedata.data.expensedata[index]);
        }
     } catch (error) {
-        Console.log(error);
+        console.log(error);
         if(error.response)
         {
            console.error(error.response.data.msg);
@@ -83,8 +89,9 @@ function display(data)
 async function deletexpense(expenseid)
 {
     try {
-        const deletestatus= await axios.put(`http://localhost:4000/deleteExpenseData/${expenseid}`);
-        if(deletestatus.data.success)
+        const token=localStorage.getItem("user");
+        const deletestatus= await axios.delete(`http://localhost:4000/deleteExpenseData/${expenseid}`,{headers: {"Authorization":token}});
+        if(deletestatus.data.success)  
         {
             console.log(deletestatus.data.msg);
             location.reload();

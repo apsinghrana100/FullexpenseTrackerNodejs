@@ -2,6 +2,7 @@
 const Sequelize=require('sequelize');
 const bcrpt=require('bcrypt');
 const usermodule=require('../module/usertable');
+const jwt=require('jsonwebtoken');
 
 
 exports.addpostdata=(async(req,res,next)=>{
@@ -36,16 +37,21 @@ try {
 }
 });
 
+function detailencry(id)
+        {
+            return jwt.sign({userid:id},'sekreteky');
+        }
 
 exports.logincred=(async(req,res,next)=>{
     console.log("email"+req.body.emailid);
     console.log("password"+req.body.password);
     const passwordtemp=req.body.password;
+    const emailtemp=req.body.emailid;
 try {
     
-
     const userdetail=await usermodule.findAll({where:{useremailid:req.body.emailid}});
     console.log("coundt"+userdetail.length);
+    
     if(userdetail.length>0)
     {       
             bcrpt.compare(passwordtemp,userdetail[0].userpass,(err,result)=>{
@@ -58,7 +64,7 @@ try {
                 if(result===true)
                 {
                     // req.session.user=userdetail;
-                    return res.status(200).json({success:true,msg:"Login Successfull"});
+                    return res.status(200).json({success:true,msg:"Login Successfull",userdetail:detailencry(userdetail[0].id)});
                     //  res.redirect('/addexpense');
                 }
                 else

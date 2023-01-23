@@ -1,4 +1,5 @@
 const express=require('express');
+const session = require('express-session');
 const app=express();
 const bodyperser=require('body-parser');
 
@@ -14,24 +15,13 @@ const routerexpense=require('./router/expense');
 const usertbl=require('./module/usertable');
 const expenstbl=require('./module/expenstable');
 
-app.use((req,res,next)=>{
-    console.log(req.body.username);
-    // try {
-    //     usertbl.findAll({where:{
-    //         username:req.body.username
-    //     }})
-    // } catch (error) {
-        
-    // }
-    next();
-})
+const authen=require('./middleware/auth');
  app.use(routerlogin);
  app.use(routerexpense);
-// app.use('/signuppage',(req,res,next)=>{
-// res.send('<h1>hello ajay</h1>')
-// })
 
-usertbl.hasOne(expenstbl);
+
+usertbl.hasMany(expenstbl);
+expenstbl.belongsTo(usertbl);
 
 sequelize.sync().then((result)=>{
     app.listen(4000);

@@ -25,8 +25,12 @@ async function loginpage(event)
                     promise=await axios.post("http://localhost:4000/loginpage",userdetail)
                     if(promise.data.success)
                     {
-                        alert("login successfull");
-                        window.location.href = `addexpenseform.htm/${abc}`;
+                        // alert("login successfull");
+                        console.log(promise.data.userdetail);
+                        // window.location.href = "addexpenseform.htm";
+                         localStorage.setItem("user",promise.data.userdetail);
+                          window.location.href = "addexpenseform.htm";
+                         console.log(promise);
                     }
                     // alert("login");
                     // message.style.backgroundColor="green";
