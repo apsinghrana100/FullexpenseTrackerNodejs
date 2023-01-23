@@ -53,11 +53,13 @@ try {
                 {
                     console.log("something went wrong");
                     // return res.status(401).send({error:"User not authorized!!"});
-                    throw new error("User not authorized!!");
+                    throw new Error("User not authorized!!");
                 }
                 if(result===true)
                 {
-                    return res.json({msg:"Login Successfull"});
+                    // req.session.user=userdetail;
+                    return res.status(200).json({success:true,msg:"Login Successfull"});
+                    //  res.redirect('/addexpense');
                 }
                 else
                 {

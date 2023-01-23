@@ -21,9 +21,16 @@ async function loginpage(event)
                     password
                 };
                 try {
+                    const abc="ajay";
                     promise=await axios.post("http://localhost:4000/loginpage",userdetail)
-                    message.style.backgroundColor="green";
-                    message.innerText=promise.data.msg;
+                    if(promise.data.success)
+                    {
+                        alert("login successfull");
+                        window.location.href = `addexpenseform.htm/${abc}`;
+                    }
+                    // alert("login");
+                    // message.style.backgroundColor="green";
+                    // message.innerText=promise.data.msg;
                     cleardata();
                 } catch (error) {
                     if (error.response && error.response.status === 404) {

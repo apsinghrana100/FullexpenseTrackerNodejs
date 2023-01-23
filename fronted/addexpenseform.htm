@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/fronted/expensestylesheet.css">
+    <title>Document</title>
+</head>
+<body>
+    
+    <form action="#" method="post" id="form1">
+        <table border="2">
+            <tr>
+                <td>
+
+                
+                Expense:<input type="number" name="money" id="expens-money"><br>
+                Description:<input type="text" name="description" id="expense-des"><br>
+                Category<select name="" id="drop-choice">
+                    <option value="Food">Food</option>
+                    <option value="Movie">Movie</option>
+                    <option value="Vegetable">Vegetable</option>
+                </select>
+                <br>
+                <input type="button" value="ADD" id="expense-add"/>
+            </td>
+            </tr>
+            
+        </table>
+        
+    </form>
+
+    <form id="form2">
+        <p id="msg"></p>
+        <table border="2" id="expense-table">
+            <tr>
+                <th>Expense</th>
+                <th>Choice</th>
+                <th>Description</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            <tr>
+                <td>Expense</td>
+                <td>Choice</td>
+                <td>Description</td>
+                <td>Edit</td>
+                <td>Delete</td>
+            </tr>
+        </table>
+    </form>
+</body>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="/fronted/addexpense.js"></script>
+</html>

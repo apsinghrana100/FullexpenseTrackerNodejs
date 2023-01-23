@@ -1,0 +1,14 @@
+#form1{
+    background-size:auto;
+    background-color: aquamarine;
+    width: 20%;
+    margin: auto;
+    
+}
+#form2{
+    background-size:auto;
+    background-color: aquamarine;
+    width: 20%;
+    height: 20%;
+    /* margin: auto; */
+}
