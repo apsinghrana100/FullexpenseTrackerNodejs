@@ -37,10 +37,11 @@ try {
 }
 });
 
-function detailencry(id)
-        {
-            return jwt.sign({userid:id},'sekreteky');
-        }
+
+function detailencry(id,premium)// this function through we are encryption aur data with some special keys(secret key)
+{
+    return jwt.sign({userid:id,isuserpremium:premium},'sekreteky');
+}
 
 exports.logincred=(async(req,res,next)=>{
     console.log("email"+req.body.emailid);
@@ -64,7 +65,7 @@ try {
                 if(result===true)
                 {
                     // req.session.user=userdetail;
-                    return res.status(200).json({success:true,msg:"Login Successfull",userdetail:detailencry(userdetail[0].id)});
+                    return res.status(200).json({success:true,msg:"Login Successfull",userdetail:detailencry(userdetail[0].id,userdetail[0].ispremium)});
                     //  res.redirect('/addexpense');
                 }
                 else

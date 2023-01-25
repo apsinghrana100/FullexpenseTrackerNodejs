@@ -8,13 +8,11 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <p id="msg1" hidden>You are premium user</p>
     <form action="#" method="post" id="form1">
         <table border="2">
             <tr>
                 <td>
-
-                
                 Expense:<input type="number" name="money" id="expens-money"><br>
                 Description:<input type="text" name="description" id="expense-des"><br>
                 Category<select name="" id="drop-choice">
@@ -24,6 +22,8 @@
                 </select>
                 <br>
                 <input type="button" value="ADD" id="expense-add"/>
+                <input type="button" value="Premium" id="premiusm-btn" hidden/>
+                <!-- <script src="https://checkout.razorpay.com/v1/checkout.js"></script> -->
             </td>
             </tr>
             
@@ -51,6 +51,8 @@
         </table>
     </form>
 </body>
+<script src="/fronted/premium.js"></script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="/fronted/addexpense.js"></script>
 </html>

@@ -1,8 +1,9 @@
-
-
 const submit=document.getElementById("expense-add");
 const table=document.getElementById("expense-table");
 const message=document.getElementById('msg');
+// const message1=document.getElementById('msg1');
+const premiumbtn=document.getElementById('premiusm-btn');
+// document.getElementById("premiusm-btn").hidden = true;
 
 submit.addEventListener('click',addexpense);
 
@@ -49,6 +50,8 @@ window.addEventListener('DOMContentLoaded',async(event)=>{
         console.log("i am window listner");
        const expensedata=await axios.get("http://localhost:4000/getexpensedata",{headers: {"Authorization":token}});
         console.log(expensedata);
+        console.log(expensedata.data.ispremiumuser);
+        checkispremium(expensedata.data.ispremiumuser);
     
         if(expensedata.data.expensedata.length<=0)
         {
@@ -102,5 +105,21 @@ async function deletexpense(expenseid)
         {
             console.error(error.response.data.msg)
         }
+    }
+}
+
+function checkispremium(isuserpremium)
+{
+    
+    if(isuserpremium)
+    {
+        document.getElementById("premiusm-btn").hidden = true;
+        message1.style.display='block';
+       // <input type="button" value="Premium" id="premiusm-btn"/>
+    }
+    else
+    {
+        message1.style.display='none';
+        document.getElementById("premiusm-btn").hidden = false;
     }
 }

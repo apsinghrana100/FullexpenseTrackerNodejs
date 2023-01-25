@@ -28,14 +28,15 @@ exports.addexpense=(async(req,res,next)=>{
 
 exports.fetchdata=(async(req,res,next)=>{
     console.log("i am fetch daling"+req.user.id);
+    console.log("i am premi"+req.user.ispremium);
     try {
         const expensedata=await expensemodule.findAll({where:{tbluserdetailId:req.user.id}});
         console.log("data"+expensedata.length);
         if(expensedata.length>0 && expensedata!==null && expensedata!==undefined)
         {
-            res.status(200).json({success:true,msg:"Record Fetch successfully",expensedata});
+            res.status(200).json({success:true,msg:"Record Fetch successfully",expensedata,ispremiumuser:req.user.ispremium});
         }else if(expensedata.length===0){
-            res.status(200).json({success:true,msg:"No Record Found",expensedata});
+            res.status(200).json({success:true,msg:"No Record Found",expensedata,ispremiumuser:req.user.ispremium});
         }
     } catch (error) {
         res.status(400).json({success:false,msg:"Something went wrong"});
