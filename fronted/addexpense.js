@@ -1,11 +1,15 @@
 const submit=document.getElementById("expense-add");
 const table=document.getElementById("expense-table");
+const leaderboardtbl=document.getElementById("leaderboard-table");
+
 const message=document.getElementById('msg');
 // const message1=document.getElementById('msg1');
 const premiumbtn=document.getElementById('premiusm-btn');
-// document.getElementById("premiusm-btn").hidden = true;
+const leaderboardbtn=document.getElementById('leaderboard-btn');
+
 
 submit.addEventListener('click',addexpense);
+leaderboardbtn.addEventListener('click',showleaderboard);
 
 async function addexpense(event)
 {
@@ -122,4 +126,44 @@ function checkispremium(isuserpremium)
         message1.style.display='none';
         document.getElementById("premiusm-btn").hidden = false;
     }
+}
+let buttonclick=0;
+
+async function showleaderboard()
+{ 
+    leaderboardtbl.style.display='block';
+    try {
+        if(buttonclick===0)
+        {
+            const token=localStorage.getItem("user");
+            const expensedata=await axios.get("http://localhost:4000/getleaderboarddata",{headers: {"Authorization":token}});
+            console.log(expensedata);
+            for (let index = 0; index < expensedata.data.length; index++) {
+                // const element = expensedata.data[index];
+                console.log(expensedata.data[index].name);
+                tbleleadboard(expensedata.data[index])
+                
+            }
+            buttonclick=1;
+        }else{
+            buttonclick=0;
+            leaderboardtbl.style.display='none'
+
+        }
+    } catch (error) {
+        console.log(error);
+    }
+    
+}
+
+function tbleleadboard(data)
+{
+ 
+    // leaderboardtbl.innerHTML="";
+    const tbl=`<tr 
+                <td>${data.name}</td>
+                <td>${data.total_cost}</td>
+              <tr/>`
+            //   leaderboardtbl.childNodes(tbl);
+              leaderboardtbl.innerHTML=leaderboardtbl.innerHTML+tbl;
 }

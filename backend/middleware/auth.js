@@ -8,7 +8,7 @@ const authenticate=((req,res,next)=>{
         const user=jwt.verify(token,'sekreteky');
         console.log(user.userid);
         usermoderl.findByPk(user.userid).then(user=>{
-            console.log(JSON.stringify(user.username));
+            // console.log(JSON.stringify(user.username));
             req.user=user;
             next();
         }).catch(err=>{

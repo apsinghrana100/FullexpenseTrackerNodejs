@@ -25,6 +25,8 @@ const authen=require('./middleware/auth');
 
 usertbl.hasMany(expenstbl);
 expenstbl.belongsTo(usertbl);
+// usertbl.hasMany(expenstbl, { foreignKey: 'id' });
+// expenstbl.belongsTo(usertbl, { foreignKey: 'tbluserdetailId' });
 usertbl.hasMany(order);
 order.belongsTo(usertbl);
 

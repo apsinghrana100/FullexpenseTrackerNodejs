@@ -60,7 +60,6 @@ function goToPage() {
         console.log(error);
     }
     
-   
 }
 
 function cleardata()

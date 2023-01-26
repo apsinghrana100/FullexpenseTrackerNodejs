@@ -23,6 +23,7 @@
                 <br>
                 <input type="button" value="ADD" id="expense-add"/>
                 <input type="button" value="Premium" id="premiusm-btn" hidden/>
+                <input type="button" value="Show LeaderBoard" id="leaderboard-btn"/>
                 <!-- <script src="https://checkout.razorpay.com/v1/checkout.js"></script> -->
             </td>
             </tr>
@@ -47,6 +48,22 @@
                 <td>Description</td>
                 <td>Edit</td>
                 <td>Delete</td>
+            </tr>
+        </table>
+    </form>
+
+    <form id="form3">
+        <p id="msg3"></p>
+        <table border="2" id="leaderboard-table" hidden>
+            <tr>
+                <th>Expense</th>
+                <th>Choice</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>Expense</td>
+                <td>Choice</td>
+                <td>Description</td>
             </tr>
         </table>
     </form>

@@ -7,8 +7,8 @@ exports.premiumcontroller=async(req,res)=>{
     try {
         console.log("i am not calling1"+req.user.id);
         var razp=new Razorpay({
-            key_id: 'rzp_test_O0A7vcap7QvdW7',
-            key_secret:'sb0DJri9dNhWoRWYQBOwlenM',
+            key_id: 'rzp_test_we08FjIV8LZquV',
+            key_secret:'iceGtU5e6wYgToRzHQzfQAXN',
         })
         const amount=2500;
 

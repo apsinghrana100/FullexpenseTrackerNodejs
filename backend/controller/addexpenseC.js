@@ -1,6 +1,9 @@
-const Sequelize=require('sequelize');
+const sequelize=require('sequelize');
+const Sequelize=require('../util/connection');
+
 const bcrpt=require('bcrypt');
 const expensemodule=require('../module/expenstable');
+const tbluserdetail=require('../module/usertable');
 const authen = require('../middleware/auth');
 const session = require('express-session');
 
@@ -60,3 +63,69 @@ exports.deletedata=(async(req,res,next)=>{ //where:{id:req.params.id,tbluserdeta
         return res.status(400).json({success:false,msg:"something went wrong in delete sections"}) 
     }
 })
+,
+            //   [sequelize.fn('SUM', sequelize.col('expense')), 'total_expense'
+exports.leaderboarddata=(async (req,res)=>{
+    console.log("show leaderboard is calling");
+    try {
+        // const leaderedata= tbluserdetail.findAll({
+        //     attributes: ['username'],
+        //     include: [
+        //       {
+        //         model: expensetbls,
+        //         attributes: [[sequelize.fn('SUM', sequelize.col('expense')), 'totalExpense']],
+        //         group: ['tbluserdetails.id']
+        //       }
+        //     ]
+        //   })
+        //     .then(results => {
+        //       // results will contain the result of the query
+        //       console.log("ia m not calling");
+        //       console.log(results);
+        //     })
+        //     .catch(err => {
+        //       // handle error
+        //       console.log(err);
+        //     });
+          
+        const users=await tbluserdetail.findAll();
+        const expenseses= await expensemodule.findAll();
+        const userAggregated={};
+
+        console.log("------"+expenseses.length);
+        expenseses.forEach(element => {
+            if(userAggregated[element.tbluserdetailId]){
+            
+            userAggregated[element.tbluserdetailId]=userAggregated[element.tbluserdetailId]+element.expense;
+            console.log("---------------"+userAggregated);
+            }else{
+                console.log("---------------"+userAggregated);
+                userAggregated[element.tbluserdetailId]=element.expense;
+            }
+        });
+
+        var userLeaderBoardDetails =[];
+
+            users.forEach((user)=>{
+                userLeaderBoardDetails.push( {name: user.username, total_cost: userAggregated[user.id] || 0 }) ;
+           
+            });
+            console.log(userLeaderBoardDetails);
+            userLeaderBoardDetails.sort((a, b) => b.total_cost -a.total_cost);
+
+        console.log("---------------"+userAggregated);
+        return res.status(200).json(userLeaderBoardDetails);
+
+            
+        // console.log("data"+leaderedata.length);
+        // if(leaderedata.length>0 && leaderedata!==null && leaderedata!==undefined)
+        // {
+        //     res.status(200).json({success:true,msg:"Record Fetch successfully",leaderedata,ispremiumuser:req.user.ispremium});
+        // }else if(leaderedata.length===0){
+        //     res.status(200).json({success:true,msg:"No Record Found",leaderedata,ispremiumuser:req.user.ispremium});
+        // }
+    } catch (error) {
+        res.status(400).json({success:false,msg:"Something went wrong"});
+    }
+
+});
