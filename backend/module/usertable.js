@@ -16,7 +16,12 @@ const user=connection.define('tbluserdetail',{
     ispremium:{
        type:Sequelize.INTEGER,
        defaultValue:0
+    },
+    totalexpense:{
+        type:Sequelize.BIGINT,
+        defaultValue:0
     }
+
 
 });
 

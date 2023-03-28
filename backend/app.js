@@ -12,15 +12,21 @@ const sequelize=require('./util/connection');
 const routerlogin=require('./router/signupmodule');
 const routerexpense=require('./router/expense');
 const routepremium=require('./router/premium');
+const routepassword=require('./router/password');
 
 const usertbl=require('./module/usertable');
 const expenstbl=require('./module/expenstable');
 const order=require('./module/ordertbl');
+const forgetpassword=require('./module/ForgotPasswordRequests');
+const downloadmodule=require('./module/downloadfilerecord');
+
 
 const authen=require('./middleware/auth');
  app.use(routerlogin);
  app.use(routerexpense);
-  app.use(routepremium);
+ app.use(routepremium);
+app.use(routepassword);
+
 
 
 usertbl.hasMany(expenstbl);
@@ -30,9 +36,14 @@ expenstbl.belongsTo(usertbl);
 usertbl.hasMany(order);
 order.belongsTo(usertbl);
 
+usertbl.hasMany(forgetpassword);
+forgetpassword.belongsTo(usertbl);   
+
+usertbl.hasMany(downloadmodule);
+downloadmodule.belongsTo(usertbl);
 
 sequelize.sync().then((result)=>{
-    app.listen(4000);
+    app.listen(process.env.PortNumber || 4000);
 }).catch(error=>{
     console.log(error);
 });

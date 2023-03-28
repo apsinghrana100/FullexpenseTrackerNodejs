@@ -34,39 +34,62 @@
 
     <form id="form2">
         <p id="msg"></p>
-        <table border="2" id="expense-table">
+       Rows Per Pages <select id="rowPerPage">
+                <option >Row Size</option>
+                <option value="5" >5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+        </select>
+        <table border="2">
             <tr>
                 <th>Expense</th>
                 <th>Choice</th>
                 <th>Description</th>
                 <th>Edit</th>
                 <th>Delete</th>
+                <table border="2" id="expense-table">
+
+                </table>
             </tr>
-            <tr>
+            
+            <!-- <tr>
                 <td>Expense</td>
                 <td>Choice</td>
                 <td>Description</td>
                 <td>Edit</td>
                 <td>Delete</td>
+            </tr> -->
+        </table>
+       
+        <button id="pagination"></button>
+    </form>
+    <button onclick="download()" id="downloadexpense">Download File</button>
+    <button onclick="downloadAllFile()" id="downloadexpenseAllFile">All Downloaded File</button>
+
+    <form id="downloadlist" >
+        <p id="msg4"></p>
+        <table border="2" id="download-table"> 
+            <tr>
+                <th>Date</th>
+                <th>FileName</th>
+                <th>Download</th>
             </tr>
         </table>
     </form>
 
-    <form id="form3">
+    <form id="form3" >
         <p id="msg3"></p>
-        <table border="2" id="leaderboard-table" hidden>
+        <table border="1" id="leaderboard-table">
             <tr>
+                <th>Name</th>
                 <th>Expense</th>
-                <th>Choice</th>
-                <th>Description</th>
             </tr>
-            <tr>
-                <td>Expense</td>
-                <td>Choice</td>
-                <td>Description</td>
-            </tr>
+            
         </table>
     </form>
+    
+
 </body>
 <script src="/fronted/premium.js"></script>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
